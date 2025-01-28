@@ -13,6 +13,10 @@ const Login = () => {
 
   const [currentState, setCurrentState] = useState("Sign Up");
 
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+  };
+
   // const login = async () => {
   //   console.log("Login Function Executed", formData);
   //   try {
@@ -68,7 +72,7 @@ const Login = () => {
 
   return (
     <form
-      onSubmit={(e) => e.preventDefault()} // Prevent default form submission behavior
+      onSubmit={onSubmitHandler} // Prevent default form submission behavior
       className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800"
     >
       <div className="inline-flex items-center gap-2 mb-2 mt-10">
@@ -87,6 +91,7 @@ const Login = () => {
           placeholder="Name"
         />
       )}
+
       <input
         name="email"
         // value={formData.email}
