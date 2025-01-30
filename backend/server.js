@@ -1,22 +1,24 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import "dotenv/config";
+import connectDB from "./config/mongodb.js";
+import connectCloudinary from "./config/cloudinary.js";
+import userRouter from "./routes/userRoute.js";
 
 const port = process.env.PORT || 4000;
 const app = express();
+
+connectDB();
+connectCloudinary();
 
 //middlewares
 app.use(express.json());
 app.use(cors());
 
 //api endpoints
-
-app.get("/", (req, res) => {
-  res.send("API WORKING");
-});
+app.use("/api/user", userRouter);
 
 // start server
-
 app.listen(port, (error) => {
   if (!error) {
     console.log(`Server running on port ${port}`);
