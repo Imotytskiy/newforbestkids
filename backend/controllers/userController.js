@@ -7,7 +7,7 @@ const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" }); // Токен на 7 днів
 };
 
-// Login User (ще не реалізовано)
+// Login User
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
