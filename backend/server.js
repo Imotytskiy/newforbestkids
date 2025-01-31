@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
 import userRouter from "./routes/userRoute.js";
+import productRouter from "./routes/productRoute.js";
 
 const port = process.env.PORT || 4000;
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 
 //api endpoints
 app.use("/api/user", userRouter);
+app.use("/api/product", productRouter);
 
 // start server
 app.listen(port, (error) => {
