@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const OrdersProduct = () => {
+const Orders = () => {
   const [deliveries, setDeliveries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -104,4 +104,4 @@ const OrdersProduct = () => {
   );
 };
 
-export default OrdersProduct;
+export default Orders;

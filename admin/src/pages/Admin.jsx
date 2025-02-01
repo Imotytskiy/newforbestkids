@@ -1,9 +1,9 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import { Routes, Route } from "react-router-dom";
-import AddProduct from "../components/AddProduct";
-import ListProduct from "../components/ListProduct";
-import OrdersProduct from "../components/OrdersProduct";
+import Add from "../components/Add";
+import List from "../components/List";
+import Orders from "../components/Orders";
 
 const Admin = () => {
   return (
@@ -12,9 +12,9 @@ const Admin = () => {
 
       <div>
         <Routes>
-          <Route path="/add" element={<AddProduct />} />
-          <Route path="/list" element={<ListProduct />} />
-          <Route path="/orders" element={<OrdersProduct />} />
+          <Route path="/add" element={<Add />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
       </div>
     </div>

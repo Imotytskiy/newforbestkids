@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const ListProduct = () => {
+const List = () => {
   const [allProducts, setAllProducts] = useState([]);
 
   const fetchInfo = async () => {
@@ -86,4 +86,4 @@ const ListProduct = () => {
   );
 };
 
-export default ListProduct;
+export default List;

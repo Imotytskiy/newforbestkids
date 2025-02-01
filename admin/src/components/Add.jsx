@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import upload_area from "../assets/upload_area.png";
 
-const AddProduct = () => {
+const Add = () => {
   const [image, setImage] = useState(null);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [productDetails, setProductDetails] = useState({
@@ -288,4 +288,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default Add;
