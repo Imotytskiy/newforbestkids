@@ -21,18 +21,19 @@ const Add = ({ token }) => {
     e.preventDefault();
 
     try {
-      const formData = newFormData();
-      formData.append("name", productDetails.name);
-      formData.append("price", productDetails.price);
-      formData.append("category", productDetails.category);
-      formData.append("description", productDetails.description);
-      formData.append("bestseller", productDetails.bestseller);
-      formData.append("sizes", JSON.stringify(selectedSizes));
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("subCategory", subCategory);
+      formData.append("description", description);
+      formData.append("bestseller", bestseller);
+      formData.append("sizes", JSON.stringify(sizes));
 
       image1 && formData.append("image1", image1);
-      image2 && formData.append("image1", image2);
-      image3 && formData.append("image1", image3);
-      image4 && formData.append("image1", image4);
+      image2 && formData.append("image2", image2);
+      image3 && formData.append("image3", image3);
+      image4 && formData.append("image4", image4);
 
       const response = await axios.post(
         backendUrl + "/api/product/add",
@@ -40,11 +41,16 @@ const Add = ({ token }) => {
         { headers: { token } }
       );
       console.log(response.data);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Помилка при відправці форми:", error);
+    }
   };
 
   return (
-    <form className="flex flex-col w-full items-start gap3">
+    <form
+      onSubmit={onSubmitHandler}
+      className="flex flex-col w-full items-start gap-3"
+    >
       <p className="mb-2">Upload Image</p>
       <div className="flex gap-2">
         <label htmlFor="image1">
@@ -104,7 +110,7 @@ const Add = ({ token }) => {
         <p className="mb-2">Product name</p>
         <input
           onChange={(e) => setName(e.target.value)}
-          value="name"
+          value={name}
           className="w-full max-w-[500px] px-3 py-2"
           type="text"
           placeholder="Type here"
@@ -115,7 +121,7 @@ const Add = ({ token }) => {
         <p className="mb-2">Product description</p>
         <textarea
           onChange={(e) => setDescription(e.target.value)}
-          value="description"
+          value={description}
           className="w-full max-w-[500px] px-3 py-2"
           type="text"
           placeholder="Write here"
@@ -127,28 +133,36 @@ const Add = ({ token }) => {
           <p className="mb-2">Product category</p>
           <select
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-3 py-2"
+            value={category}
+            className="w-full px-3 py-2 border rounded-md"
           >
             <option value="Boys">Boys</option>
             <option value="Girls">Girls</option>
             <option value="Unisex">Unisex</option>
           </select>
         </div>
+
         <div>
           <p className="mb-2">Sub category</p>
-          <select className="w-full px-3 py-2">
+          <select
+            onChange={(e) => setSubCategory(e.target.value)}
+            value={subCategory}
+            className="w-full px-3 py-2 border rounded-md"
+          >
             <option value="Topwear">Topwear</option>
             <option value="Bottomwear">Bottomwear</option>
             <option value="Winterwear">Winterwear</option>
           </select>
         </div>
+
         <div>
           <p className="mb-2">Product price</p>
           <input
             onChange={(e) => setPrice(e.target.value)}
             value={price}
-            className="w-full px-3 py-2 sm:w-[120px]"
-            type="Number"
+            className="w-full px-3 py-2 border rounded-md sm:w-[120px]"
+            type="number"
+            min="0"
             placeholder="25"
           />
         </div>
@@ -254,11 +268,7 @@ const Add = ({ token }) => {
           Add to bestseller
         </label>
       </div>
-      <button
-        type="submit"
-        // onClick={Add_Product}
-        className="w-28 py-3 mt-4 bg-black text-white "
-      >
+      <button type="submit" className="w-28 py-3 mt-4 bg-black text-white ">
         ADD
       </button>
     </form>

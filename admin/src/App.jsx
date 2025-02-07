@@ -26,7 +26,6 @@ const App = () => {
         <Login setToken={setToken} />
       ) : (
         <>
-          <ToastContainer autoClose={4000} />
           <Navbar setToken={setToken} />
           <hr />
           <div className="flex w-full">

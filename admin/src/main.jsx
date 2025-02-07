@@ -1,13 +1,17 @@
+import React from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./index.css";
-import { BrowserRouter } from "react-router-dom";
-import AdminContextProvider from "./context/AdminContext";
 
-createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <AdminContextProvider>
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+  createRoot(rootElement).render(
+    <Router>
       <App />
-    </AdminContextProvider>
-  </BrowserRouter>
-);
+    </Router>
+  );
+} else {
+  console.error("Root element not found");
+}
