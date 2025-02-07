@@ -4,10 +4,10 @@ import axios from "axios";
 import { backendUrl } from "../App";
 
 const Add = ({ token }) => {
-  const [image1, setImage1] = useState(false);
-  const [image2, setImage2] = useState(false);
-  const [image3, setImage3] = useState(false);
-  const [image4, setImage4] = useState(false);
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [image3, setImage3] = useState(null);
+  const [image4, setImage4] = useState(null);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -30,10 +30,10 @@ const Add = ({ token }) => {
       formData.append("bestseller", bestseller);
       formData.append("sizes", JSON.stringify(sizes));
 
-      image1 && formData.append("image1", image1);
-      image2 && formData.append("image2", image2);
-      image3 && formData.append("image3", image3);
-      image4 && formData.append("image4", image4);
+      if (image1) formData.append("image1", image1);
+      if (image2) formData.append("image2", image2);
+      if (image3) formData.append("image3", image3);
+      if (image4) formData.append("image4", image4);
 
       const response = await axios.post(
         backendUrl + "/api/product/add",
@@ -56,8 +56,8 @@ const Add = ({ token }) => {
         <label htmlFor="image1">
           <img
             className="w-20"
-            src={!image1 ? assets.upload_area : URL.createObjectURL(image1)}
-            alt=""
+            src={image1 ? URL.createObjectURL(image1) : assets.upload_area}
+            alt="Image Preview"
           />
           <input
             onChange={(e) => setImage1(e.target.files[0])}
@@ -69,11 +69,11 @@ const Add = ({ token }) => {
         <label htmlFor="image2">
           <img
             className="w-20"
-            src={!image2 ? assets.upload_area : URL.createObjectURL(image2)}
-            alt=""
+            src={image2 ? URL.createObjectURL(image2) : assets.upload_area}
+            alt="Image Preview"
           />
           <input
-            onChange={(e) => setImage2(e.target.files[1])}
+            onChange={(e) => setImage2(e.target.files[0])}
             type="file"
             id="image2"
             hidden
@@ -82,11 +82,11 @@ const Add = ({ token }) => {
         <label htmlFor="image3">
           <img
             className="w-20"
-            src={!image3 ? assets.upload_area : URL.createObjectURL(image3)}
-            alt=""
+            src={image3 ? URL.createObjectURL(image3) : assets.upload_area}
+            alt="Image Preview"
           />
           <input
-            onChange={(e) => setImage3(e.target.files[2])}
+            onChange={(e) => setImage3(e.target.files[0])}
             type="file"
             id="image3"
             hidden
@@ -95,11 +95,11 @@ const Add = ({ token }) => {
         <label htmlFor="image4">
           <img
             className="w-20"
-            src={!image4 ? assets.upload_area : URL.createObjectURL(image4)}
-            alt=""
+            src={image4 ? URL.createObjectURL(image4) : assets.upload_area}
+            alt="Image Preview"
           />
           <input
-            onChange={(e) => setImage4(e.target.files[3])}
+            onChange={(e) => setImage4(e.target.files[0])}
             type="file"
             id="image4"
             hidden
@@ -123,7 +123,6 @@ const Add = ({ token }) => {
           onChange={(e) => setDescription(e.target.value)}
           value={description}
           className="w-full max-w-[500px] px-3 py-2"
-          type="text"
           placeholder="Write here"
           required
         />
