@@ -11,6 +11,7 @@ import support_img from "./support_img.png";
 import cross_icon from "./cross_icon.png";
 import bin_icon from "./bin_icon.png";
 import mastercard_logo from "./mastercard_logo.svg";
+import upload_area from "./upload_area.png";
 
 export const assets = {
   logo_icon,
@@ -26,6 +27,7 @@ export const assets = {
   cross_icon,
   bin_icon,
   mastercard_logo,
+  upload_area,
 };
 
 export const products = [

@@ -1,6 +1,5 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
-import { AdminContext } from "../context/AdminContext"; // Import context if needed
+
 import { assets } from "../assets/assets"; // Verify path to assets
 
 const Navbar = ({ setToken }) => {

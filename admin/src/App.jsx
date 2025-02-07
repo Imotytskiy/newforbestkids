@@ -5,9 +5,9 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import Add from "./components/Add";
-import List from "./components/List";
-import Orders from "./components/Orders";
+import Add from "./pages/Add";
+import List from "./pages/List";
+import Orders from "./pages/Orders";
 import Login from "./components/Login";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
