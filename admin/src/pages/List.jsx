@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { backendUrl, currency } from "../App";
 
-const List = () => {
+const List = ({ token }) => {
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
@@ -15,6 +15,24 @@ const List = () => {
       }
 
       console.log(response.data); // Зберігаємо отримані дані у стан
+    } catch (error) {
+      console.log("Помилка при отриманні списку продуктів:", error);
+      toast.error(error.messsage);
+    }
+  };
+  const removeProduct = async (id) => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/product/remove",
+        { id },
+        { headers: { token } }
+      );
+      if ((response.data, success)) {
+        toast.success(response.data.message);
+        await fetchList();
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
       console.log("Помилка при отриманні списку продуктів:", error);
       toast.error(error.messsage);
@@ -48,7 +66,10 @@ const List = () => {
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>{currency}</p>
-            <p className="text-right md:text-center cursor-pointer text-lg">
+            <p
+              onClick={() => removeProduct(item._id)}
+              className="text-right md:text-center cursor-pointer text-lg"
+            >
               X
             </p>
           </div>
