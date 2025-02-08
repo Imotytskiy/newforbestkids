@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useContext } from "react";
+import { ShopContext } from "../context/ShopContext";
 
 const Login = () => {
   // const [formData, setFormData] = useState({
@@ -12,63 +14,21 @@ const Login = () => {
   // };
 
   const [currentState, setCurrentState] = useState("Sign Up");
+  const { token, setToken, navigate, backendUrl } = useContext(ShopContext);
+
+  const [name,setName]=useState('');
+  const [password,setPassword]=useState('');
+  const [email,setEmail]=useState('');
+
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+    try{}
+      catch(error){
+
+      }
+    }
   };
-
-  // const login = async () => {
-  //   console.log("Login Function Executed", formData);
-  //   try {
-  //     const response = await fetch("http://localhost:4000/login", {
-  //       method: "POST",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     const responseData = await response.json();
-
-  //     if (responseData.success) {
-  //       localStorage.setItem("auth-token", responseData.token);
-  //       window.location.replace("/");
-  //     } else {
-  //       alert(responseData.errors);
-  //     }
-  //   } catch (error) {
-  //     console.error("Signup error:", error);
-  //     alert("An error occurred during signup.");
-  //   }
-  // };
-
-  // const signup = async () => {
-  //   console.log("Signup Function Executed", formData);
-
-  //   try {
-  //     const response = await fetch("http://localhost:4000/signup", {
-  //       method: "POST",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     const responseData = await response.json();
-
-  //     if (responseData.success) {
-  //       localStorage.setItem("auth-token", responseData.token);
-  //       window.location.replace("/");
-  //     } else {
-  //       alert(responseData.errors);
-  //     }
-  //   } catch (error) {
-  //     console.error("Signup error:", error);
-  //     alert("An error occurred during signup.");
-  //   }
-  // };
 
   return (
     <form
