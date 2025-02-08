@@ -11,6 +11,7 @@ import Orders from "./pages/Orders";
 import Login from "./components/Login";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
+export const currency = "pln";
 console.log(backendUrl);
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
         <Login setToken={setToken} />
       ) : (
         <>
+          <ToastContainer autoClose={4000} />
           <Navbar setToken={setToken} />
           <hr />
           <div className="flex w-full">
