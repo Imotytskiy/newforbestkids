@@ -34,6 +34,18 @@ const ShopContextProvider = (props) => {
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/api/cart/add",
+          { itemId, size },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   };
 
   const getCartCount = () => {
@@ -66,16 +78,44 @@ const ShopContextProvider = (props) => {
       toast.error(error.message);
     }
   };
+  const getUserCart = async (token) => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/cart/get",
+        {},
+        { headers: { token } }
+      );
+
+      if (response.data.success) {
+        setCartItems(response.data.cartData); // Виправлена опечатка `respo.data`
+      }
+    } catch (error) {
+      console.error("Помилка при отриманні кошика:", error);
+      toast.error(error.message);
+    }
+  };
 
   useEffect(() => {
     getProductsData();
   }, []);
 
-  const updateQuantity = (itemId, size, quantity) => {
+  const updateQuantity = async (itemId, size, quantity) => {
     // Create a deep copy of cartItems to avoid mutating the original state directly
     let cartData = structuredClone(cartItems);
     cartData[itemId][size] = quantity; // Update the quantity for the specified item and size
-    setCartItems(cartData); // Update the state
+    setCartItems(cartData);
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/api/cart/update",
+          { itemId, size, quantity },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.error("Помилка при отриманні даних:", error.message);
+        toast.error(error.message);
+      }
+    }
   };
 
   const getCartAmount = () => {
@@ -111,6 +151,14 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     console.log(cartItems);
   }, [cartItems]);
+
+  useEffect(() => {
+    if (!token && localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+      getUserCart(localStorage.getItem("token"));
+    }
+  }, []);
+
   const value = {
     products,
     currency,
@@ -128,6 +176,7 @@ const ShopContextProvider = (props) => {
     backendUrl,
     setToken,
     token,
+    setCartItems,
   };
   console.log("ShopContext value:", value);
 
