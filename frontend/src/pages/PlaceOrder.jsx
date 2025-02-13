@@ -7,7 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
-  const [method, setMethod] = useState("cod");
+  // const [method, setMethod] = useState("cod");
   const {
     navigate,
     backendUrl,
@@ -55,31 +55,34 @@ const PlaceOrder = () => {
         }
       }
 
+      console.log("ORDER", orderItems);
+
       let orderData = {
         address: formData, // виправлено "adress" -> "address"
         items: orderItems,
         amount: getCartAmount() + delivery_fee,
       };
 
-      switch (method) {
-        case "cod":
-          const response = await axios.post(
-            backendUrl + "/api/order/place",
-            orderData,
-            { headers: { token } }
-          );
-          console.log(response.data); // Переміщено після визначення response
-          if (response.data.success) {
-            setCartItems({});
-            navigate("/orders");
-          } else {
-            toast.error(response.data.message);
-          }
-          break;
-        default:
-          toast.error("Невідомий метод оплати");
-          break;
-      }
+      // switch (method) {
+      //   case "cod":
+      const response = await axios.post(
+        backendUrl + "/api/order/place",
+        orderData,
+        { headers: { token } }
+      );
+      console.log("Token:", token);
+      console.log(response.data); // Переміщено після визначення response
+      // if (response.data.success) {
+      setCartItems({});
+      navigate("/orders");
+      // } else {
+      //   toast.error(response.data.message);
+      // }
+      //     break;
+      //   default:
+      //     toast.error("Невідомий метод оплати");
+      //     break;
+      // }
     } catch (error) {
       console.error("Помилка під час обробки замовлення:", error);
       toast.error("Не вдалося оформити замовлення. Спробуйте ще раз!");
