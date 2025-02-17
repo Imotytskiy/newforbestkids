@@ -6,7 +6,7 @@ import axios from "axios";
 const Orders = () => {
   const { backendUrl, token, currency } = useContext(ShopContext);
   const [orderData, setOrderData] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null); // Додаємо стан для помилок
 
   const loadOrderData = async () => {
     if (!token) return;
@@ -17,8 +17,24 @@ const Orders = () => {
         {},
         { headers: { token } }
       );
-      setOrderData(response.data);
-      console.log("MONGO DATA", orderData);
+
+      if (response.data.success) {
+        let allOrdersItems = [];
+
+        response.data.orders.forEach((order) => {
+          order.items.forEach((item) => {
+            allOrdersItems.push({
+              ...item, // Копіюємо всі властивості item
+              status: order.status,
+              payment: order.payment,
+              paymentMethod: order.paymentMethod,
+              date: order.date,
+            });
+          });
+        });
+
+        setOrderData(allOrdersItems.reverse());
+      }
     } catch (error) {
       console.error("Помилка завантаження замовлень:", error);
       setError("Не вдалося завантажити замовлення. Спробуйте ще раз.");
@@ -45,7 +61,7 @@ const Orders = () => {
               <div className="flex items-start gap-6 text-sm">
                 <img
                   className="w-16 sm:w-20"
-                  src={item.image[0]}
+                  src={item.image?.[0]}
                   alt={item.name}
                 />
               </div>
