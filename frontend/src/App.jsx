@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import Product from "./pages/Product";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
+import Orders from "./pages/Orders";
 import { ToastContainer, toast } from "react-toastify";
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
       <Footer />
     </div>
