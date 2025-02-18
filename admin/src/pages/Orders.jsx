@@ -18,7 +18,7 @@ const Orders = ({ token }) => {
       );
 
       if (response.data.success) {
-        setOrders(response.data.orders);
+        setOrders(response.data.orders.reverse);
       } else {
         toast.error(response.data.message);
       }
@@ -78,18 +78,16 @@ const Orders = ({ token }) => {
                 ))}
               </div>
 
-              <p>
-                {order.address.firstname} {order.address.lastName}
-              </p>
+              <p>{/* {order.address.firstname} {order.address.lastName} */}</p>
 
               <div>
-                <p>{order.address.street},</p>
-                <p>{order.address.city},</p>
-                <p>{order.address.country},</p>
-                <p>{order.address.zipcode}</p>
+                {/* <p>{order.address.street},</p> */}
+                {/* <p>{order.address.city},</p> */}
+                {/* <p>{order.address.country},</p> */}
+                {/* <p>{order.address.zipcode}</p> */}
               </div>
 
-              <p>{order.address.phone}</p>
+              {/* <p>{order.address.phone}</p> */}
 
               <div>
                 <p>Items: {order.items.length}</p>
