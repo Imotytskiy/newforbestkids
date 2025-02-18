@@ -74,8 +74,15 @@ const Orders = () => {
                 <p>Quantity: {item.quantity}</p>
                 <p>Size: {item.size}</p>
               </div>
-              <p className="mt-2">
-                Date: <span className="text-gray-400">{item.date}</span>
+              <p className="mt-1">
+                Date:
+                <span className="text-gray-400">
+                  {new Date(item.date).toDateString()}
+                </span>
+              </p>
+              <p className="mt-1">
+                {" "}
+                <span className="text-gray-400">{item.paymentMethod}</span>
               </p>
             </div>
           ))
@@ -86,8 +93,12 @@ const Orders = () => {
       <div className="md:w-1/2 flex justify-between">
         <div className="flex items-center gap-2">
           <p className="min-w-2 h-2 rounded-full bg-green-500"></p>
-          <p className="text-sm md:text-base">Підготовлено до відправлення</p>
+          {/* <p className="text-sm md:text-base">{item.status}</p> */}
         </div>
+        <button
+          onClick={loadOrderData}
+          className="border px-4 py-2 font-medium rounded-sm"
+        ></button>
       </div>
     </div>
   );
